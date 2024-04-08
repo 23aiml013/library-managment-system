@@ -1,0 +1,20 @@
+#include<iostream>
+#include<string.h>
+#include<stdlib.h>
+using namespace std;
+class library
+{
+  int id;
+char name[100];
+char student[100];
+chat author[100];
+int price;
+int pages;
+};
+int main()
+{
+  lib lib[20];
+int input=0;
+input count=0;
+while(input!=5)
+{
