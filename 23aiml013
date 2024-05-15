@@ -1,20 +1,60 @@
-#include<iostream>
-#include<string.h>
-#include<stdlib.h>
+#include <iostream>
+#include <string>
+
 using namespace std;
-class library
-{
-  int id;
-char name[100];
-char student[100];
-chat author[100];
-int price;
-int pages;
+
+// Define Book class
+class Book {
+private:
+    string title;
+    string author;
+    int year;
+public:
+    Book(string t, string a, int y) : title(t), author(a), year(y) {}
+    string getTitle() const { return title; }
+    string getAuthor() const { return author; }
+    int getYear() const { return year; }
 };
-int main()
-{
-  lib lib[20];
-int input=0;
-input count=0;
-while(input!=5)
-{
+
+// Define Library class
+class Library {
+private:
+    static const int MAX_BOOKS = 100;
+    Book* books[MAX_BOOKS];
+    int numBooks;
+public:
+    Library() : numBooks(0) {}
+    void addBook(const Book& book) {
+        if (numBooks < MAX_BOOKS) {
+            books[numBooks] = new Book(book);
+            numBooks++;
+        } else {
+            cout << "Library is full. Cannot add more books." << endl;
+        }
+    }
+    void displayBooks() const {
+        cout << "Library Inventory:" << endl;
+        for (int i = 0; i < numBooks; i++) {
+            cout << "Title: " << books[i]->getTitle() << ", Author: " << books[i]->getAuthor() << ", Year: " << books[i]->getYear() << endl;
+        }
+    }
+    ~Library() {
+        for (int i = 0; i < numBooks; i++) {
+            delete books[i];
+        }
+    }
+};
+
+int main() {
+    Library library;
+
+    // Adding books to the library
+    library.addBook(Book("Book1", "Author1", 2000));
+    library.addBook(Book("Book2", "Author2", 2005));
+    library.addBook(Book("Book3", "Author3", 2010));
+
+    // Displaying all books in the library
+    library.displayBooks();
+
+    return 0;
+}
